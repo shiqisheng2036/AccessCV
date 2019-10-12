@@ -1,14 +1,11 @@
 //
 //  ViewController.swift
-//  SmartCameraLBTA
-//
-//  Created by Brian Voong on 7/12/17.
-//  Copyright © 2017 Lets Build That App. All rights reserved.
 //
 
 import UIKit
 import AVKit
 import Vision
+import Metal
 
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
@@ -49,7 +46,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     fileprivate func setupIdentifierConfidenceLabel() {
         view.addSubview(identifierLabel)
-        identifierLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -32).isActive = true
+        identifierLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         identifierLabel.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         identifierLabel.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         identifierLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -62,7 +59,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         // make sure to go download the models at https://developer.apple.com/machine-learning/ scroll to the bottom
         //creates model from apple
-        guard let model = try? VNCoreMLModel(for: SqueezeNet().model) else { return }
+        guard let model = try? VNCoreMLModel(for: Resnet50().model) else { return }
         let request = VNCoreMLRequest(model: model) { (finishedReq, err) in
             
             //perhaps check the err
@@ -76,7 +73,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             print(firstObservation.identifier, firstObservation.confidence)
             
             DispatchQueue.main.async {
-                self.identifierLabel.text = "\(firstObservation.identifier) \(firstObservation.confidence * 100)"
+                self.identifierLabel.text = "Object: \(firstObservation.identifier) \(firstObservation.confidence * 100)"
             }
             
         }

@@ -1,0 +1,9 @@
+version: "Apple Swift version 5.1 (swiftlang-1100.0.270.13 clang-1100.0.33.7)"
+options: "b92833dbf41fbacbc29fde5e856b58a6"
+build_time: [1570911935, 781007000]
+inputs:
+  "/Users/nk/Downloads/AccessibilityCV2/AccessibilityCV2/ViewController.swift": [1570911935, 724625370]
+  "/Users/nk/Downloads/AccessibilityCV2/AccessibilityCV2/AppDelegate.swift": [1570897899, 970135952]
+  "/Users/nk/Downloads/AccessibilityCV2/AccessibilityCV2/SceneDelegate.swift": [1570897899, 972942128]
+  "/Users/nk/Downloads/AccessibilityCV2/DerivedData/AccessibilityCV2/Build/Intermediates.noindex/AccessibilityCV2.build/Debug-iphoneos/AccessibilityCV2.build/DerivedSources/CoreMLGenerated/YOLOv3/YOLOv3.swift": [1570905987, 23519417]
+  "/Users/nk/Downloads/AccessibilityCV2/DerivedData/AccessibilityCV2/Build/Intermediates.noindex/AccessibilityCV2.build/Debug-iphoneos/AccessibilityCV2.build/DerivedSources/CoreMLGenerated/Resnet50/Resnet50.swift": [1570904608, 545001137]

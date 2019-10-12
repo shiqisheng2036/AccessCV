@@ -15,7 +15,8 @@
 		4C1A45A72352376D0009D78F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C1A45A52352376D0009D78F /* LaunchScreen.storyboard */; };
 		4C1A45B22352376D0009D78F /* AccessibilityCV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A45B12352376D0009D78F /* AccessibilityCV2Tests.swift */; };
 		4C1A45BD2352376D0009D78F /* AccessibilityCV2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A45BC2352376D0009D78F /* AccessibilityCV2UITests.swift */; };
-		4C1A45CB235241AB0009D78F /* SqueezeNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A45CA235241AB0009D78F /* SqueezeNet.mlmodel */; };
+		4C1A45CD2352519F0009D78F /* Resnet50.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A45CC2352519F0009D78F /* Resnet50.mlmodel */; };
+		4C1A45CF235257010009D78F /* YOLOv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A45CE235257010009D78F /* YOLOv3.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +51,8 @@
 		4C1A45B82352376D0009D78F /* AccessibilityCV2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AccessibilityCV2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C1A45BC2352376D0009D78F /* AccessibilityCV2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityCV2UITests.swift; sourceTree = "<group>"; };
 		4C1A45BE2352376D0009D78F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4C1A45CA235241AB0009D78F /* SqueezeNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SqueezeNet.mlmodel; sourceTree = "<group>"; };
+		4C1A45CC2352519F0009D78F /* Resnet50.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Resnet50.mlmodel; sourceTree = "<group>"; };
+		4C1A45CE235257010009D78F /* YOLOv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = YOLOv3.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +106,8 @@
 				4C1A459A2352376B0009D78F /* AppDelegate.swift */,
 				4C1A459C2352376B0009D78F /* SceneDelegate.swift */,
 				4C1A459E2352376B0009D78F /* ViewController.swift */,
-				4C1A45CA235241AB0009D78F /* SqueezeNet.mlmodel */,
+				4C1A45CC2352519F0009D78F /* Resnet50.mlmodel */,
+				4C1A45CE235257010009D78F /* YOLOv3.mlmodel */,
 				4C1A45A02352376B0009D78F /* Main.storyboard */,
 				4C1A45A32352376D0009D78F /* Assets.xcassets */,
 				4C1A45A52352376D0009D78F /* LaunchScreen.storyboard */,
@@ -262,10 +265,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C1A45CF235257010009D78F /* YOLOv3.mlmodel in Sources */,
+				4C1A45CD2352519F0009D78F /* Resnet50.mlmodel in Sources */,
 				4C1A459F2352376B0009D78F /* ViewController.swift in Sources */,
 				4C1A459B2352376B0009D78F /* AppDelegate.swift in Sources */,
 				4C1A459D2352376B0009D78F /* SceneDelegate.swift in Sources */,
-				4C1A45CB235241AB0009D78F /* SqueezeNet.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
