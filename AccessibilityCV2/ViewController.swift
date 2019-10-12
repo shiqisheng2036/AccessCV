@@ -54,7 +54,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
 //        print("Camera was able to capture a frame:", Date())
-        
+        sleep(3)
         guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         
         // make sure to go download the models at https://developer.apple.com/machine-learning/ scroll to the bottom
@@ -69,11 +69,33 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             guard let results = finishedReq.results as? [VNClassificationObservation] else { return }
             
             guard let firstObservation = results.first else { return }
-            
             print(firstObservation.identifier, firstObservation.confidence)
+            let synth = AVSpeechSynthesizer()
             
             DispatchQueue.main.async {
-                self.identifierLabel.text = "Object: \(firstObservation.identifier) \(firstObservation.confidence * 100)"
+                if (firstObservation.confidence * 100 > 70) {
+                    self.identifierLabel.text = (firstObservation.identifier)
+                } else {
+                    self.identifierLabel.text = (firstObservation.identifier) + " unsure"
+                }
+                
+                guard let text = self.identifierLabel.text else {
+                    return
+                }
+                let utterance = AVSpeechUtterance(string: text)
+                //utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+                //let allVoices = AVSpeechSynthesisVoice.speechVoices()
+                //utterance.voice = AVSpeechSynthesisVoice(identifier: allVoices[0].identifier)
+                //controls speaking rate
+                utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+                
+                    synth.speak(utterance)
+                                    
+                
+                //AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
+                // TBD audio playback adjustment Sam
+                // AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .duckOthers)
+                
             }
             
         }
@@ -82,5 +104,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
 
 }
+
+
 
 
