@@ -1,26 +1,28 @@
 //
 //  ViewController.swift
+//  AccessibilityCV
+//
+//  Created by Nikhil Kanamarla on 10/12/19.
+//  Copyright © 2019 Nikhil Kanamarla. All rights reserved.
 //
 
 import UIKit
 import AVKit
 import Vision
-import Metal
 
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     let identifierLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .white
+        label.backgroundColor = .black
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    var temp:String? =  " ";
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // here is where we start up the camera
         let captureSession = AVCaptureSession()
         captureSession.sessionPreset = .photo
         
@@ -46,7 +48,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     fileprivate func setupIdentifierConfidenceLabel() {
         view.addSubview(identifierLabel)
-        identifierLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        identifierLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -32).isActive = true
         identifierLabel.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         identifierLabel.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         identifierLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -54,57 +56,49 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
 //        print("Camera was able to capture a frame:", Date())
-        sleep(3)
+        
         guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         
-        // make sure to go download the models at https://developer.apple.com/machine-learning/ scroll to the bottom
-        //creates model from apple
         guard let model = try? VNCoreMLModel(for: Resnet50().model) else { return }
         let request = VNCoreMLRequest(model: model) { (finishedReq, err) in
             
             //perhaps check the err
             
 //            print(finishedReq.results)
-            //guard unraps
+            
             guard let results = finishedReq.results as? [VNClassificationObservation] else { return }
             
             guard let firstObservation = results.first else { return }
-            print(firstObservation.identifier, firstObservation.confidence)
-            let synth = AVSpeechSynthesizer()
             
+            print(firstObservation.identifier, firstObservation.confidence)
+            //let synth = AVSpeechSynthesizer()
             DispatchQueue.main.async {
-                if (firstObservation.confidence * 100 > 70) {
+               if (firstObservation.confidence * 100 > 70) {
                     self.identifierLabel.text = (firstObservation.identifier)
                 } else {
                     self.identifierLabel.text = (firstObservation.identifier) + " unsure"
                 }
-                
-                guard let text = self.identifierLabel.text else {
+               /*guard let text = self.identifierLabel.text else {
                     return
                 }
-                let utterance = AVSpeechUtterance(string: text)
-                //utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-                //let allVoices = AVSpeechSynthesisVoice.speechVoices()
-                //utterance.voice = AVSpeechSynthesisVoice(identifier: allVoices[0].identifier)
-                //controls speaking rate
-                utterance.rate = AVSpeechUtteranceDefaultSpeechRate
                 
-                    synth.speak(utterance)
-                                    
-                
-                //AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
-                // TBD audio playback adjustment Sam
-                // AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .duckOthers)
-                
+               let utterance = AVSpeechUtterance(string: text)
+            
+            //controls speaking rate
+            utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+            
+            //if (self.temp !=  self.identifierLabel.text) {
+                synth.speak(utterance)
+            //}
+ */
             }
             
-        }
-        
+         
+            }
         try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])
     }
 
 }
-
 
 
 
