@@ -20,6 +20,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         return label
     }()
     var temp:String? =  " ";
+    var initialchange:String? = " ";
+    var counter = 0;
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,26 +73,29 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             guard let firstObservation = results.first else { return }
             
             print(firstObservation.identifier, firstObservation.confidence)
-            //let synth = AVSpeechSynthesizer()
+            
             DispatchQueue.main.async {
                if (firstObservation.confidence * 100 > 70) {
                     self.identifierLabel.text = (firstObservation.identifier)
                 } else {
                     self.identifierLabel.text = (firstObservation.identifier) + " unsure"
                 }
-               /*guard let text = self.identifierLabel.text else {
-                    return
-                }
+               
+                let synth = AVSpeechSynthesizer()
+                let utterance = AVSpeechUtterance(string: self.identifierLabel.text!)
+                utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+                utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+                //synth.speak(utterance)
+
                 
-               let utterance = AVSpeechUtterance(string: text)
-            
-            //controls speaking rate
-            utterance.rate = AVSpeechUtteranceDefaultSpeechRate
-            
-            //if (self.temp !=  self.identifierLabel.text) {
+           if ((self.temp !=  self.identifierLabel.text)) {
+                self.counter+=1
+            }
+                if(self.counter>20){
                 synth.speak(utterance)
-            //}
- */
+                self.temp = self.identifierLabel.text
+                self.counter=0
+                }
             }
             
          
