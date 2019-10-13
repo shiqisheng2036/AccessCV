@@ -106,4 +106,3 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
 }
 
 
-
